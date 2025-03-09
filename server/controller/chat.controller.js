@@ -1,3 +1,4 @@
+import Chat from "../models/conversation.model.js";
 
 
 export const chatController = async(req,res)=>{
@@ -41,6 +42,14 @@ export const chatController = async(req,res)=>{
 
         // Extract AI response
         const reply = data.choices?.[0]?.message?.content || "Sorry, I couldn't understand that.";
+
+        // Save chat to MongoDB
+        const newChat = new Chat({
+            userMessage: conversation,
+            botReply: reply,
+        });
+
+        await newChat.save();
 
         res.status(200).json({ reply });
     } catch (error) {
