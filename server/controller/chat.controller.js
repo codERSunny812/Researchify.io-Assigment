@@ -28,7 +28,7 @@ export const chatController = async(req,res)=>{
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                model: "llama3-8b-8192",
+                model: "mixtral-8x7b-32768",
                 messages: [{ 
                     role: "user", 
                     content: conversation 
@@ -38,10 +38,14 @@ export const chatController = async(req,res)=>{
 
 
         const data = await response.json();
+
+        console.log("data from the api is:",data)
        
 
         // Extract AI response
         const reply = data.choices?.[0]?.message?.content || "Sorry, I couldn't understand that.";
+
+        console.log("LLM reply:", reply);
 
         // Save chat to MongoDB
         const newChat = new Chat({

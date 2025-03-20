@@ -19,6 +19,9 @@ const Insight = () => {
   const [conversation, setConversation] = useState([]);
   const chatContainerRef = useRef(null);
 
+
+  console.log("conversation", conversation);
+
   // Load chat history from localStorage
   useEffect(() => {
     const storedConversation = localStorage.getItem("chatConversation");
@@ -54,6 +57,8 @@ const Insight = () => {
     );
 
     const data = await response.json();
+
+    console.log(data, "data");
 
     setConversation([
       ...updatedConversation,
